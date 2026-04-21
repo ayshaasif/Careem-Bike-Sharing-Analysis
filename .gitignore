@@ -1,0 +1,19 @@
+# Ignore trial files
+trial.*
+
+# Ignore specific script
+scarpe_2.py
+
+# Ignore logs and data files
+*.log
+*.csv
+*.json
+*.pyd
+*.pyc
+
+# Ignore Python cache
+__pycache__/
+
+# Ignore environment variables and virtual environments
+.env
+careem-env/
