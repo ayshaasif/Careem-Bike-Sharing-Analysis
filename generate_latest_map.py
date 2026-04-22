@@ -4,7 +4,9 @@ from supabase import create_client
 import os
 import pandas as pd
 from dotenv import load_dotenv
-
+import plotly.express as px
+import geopandas as gpd
+from shapely.geometry import Point
 
 load_dotenv()
 
@@ -27,7 +29,45 @@ merged_df = pd.merge(station_info_df, latest_station_status_df, on='station_id',
 print(merged_df.head())
 print(merged_df.columns)
 print(merged_df['num_bikes_available'].isna().sum())
-import plotly.express as px
+
+
+
+import json
+
+geojson = {
+    "type": "FeatureCollection",
+    "features": []
+}
+
+for index, row in merged_df.iterrows():
+    # Logic for color: Green if bikes available, Red if empty
+    color = "#00ff00" if row['num_bikes_available'] > 0 else "#ff0000"
+    
+    feature = {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [row['longitude'], row['latitude']]
+        },
+        "properties": {
+            # GitHub specific labels
+            "title": f"Station: {row['station_name']}",
+            "description": f"Available Bikes: {row['num_bikes_available']}",
+            
+            # GitHub specific styling (Simplestyle)
+            "marker-color": color,
+            "marker-symbol": "bicycle",
+            "marker-size": "medium",
+            
+            # You can still keep your raw data here too
+            "station_id": row['station_id']
+        }
+    }
+    geojson["features"].append(feature)
+
+with open("map.geojson", "w") as f:
+    json.dump(geojson, f)
+
 
 # Create the map
 fig = px.scatter_map(
