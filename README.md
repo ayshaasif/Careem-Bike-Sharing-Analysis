@@ -33,7 +33,7 @@ This project is designed as a self-updating data product. It monitors bike stati
 
 ## 📊 Live Map
 You can view the real-time availability map here:
-`https://ayshaasif.github.io/Careem-Bike-Sharing-Analysis/latest_bike_availability_map.html`
+[https://ayshaasif.github.io/Careem-Bike-Sharing-Analysis/latest_bike_availability_map.html](https://ayshaasif.github.io/Careem-Bike-Sharing-Analysis/latest_bike_availability_map.html)
 
 ## 🛠 Setup & Installation
 If you wish to run this locally:
