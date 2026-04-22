@@ -1,6 +1,7 @@
 import requests
 from supabase import create_client
 import os
+import pandas as pd
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -39,6 +40,7 @@ def ingest_deltas():
 
     # 4. Batch insert into Supabase
     if updates:
+        pd.DataFrame(updates).to_csv('station_status_latest_updates.csv', index=False) # Optional: Save updates to CSV for backup
         supabase.table("station_snapshots").insert(updates).execute()
         print(f"Stored {len(updates)} changes.")
     else:

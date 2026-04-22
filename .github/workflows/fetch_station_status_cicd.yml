@@ -8,6 +8,11 @@ on:
 jobs:
   run-python:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,5 +38,27 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python scrape_station_status.py
+
+      - name: Generate Bike Station Map 
+        env : 
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python generate_bike_station_map.py
+
+      - name : Commit and push latest bike availability map
+        uses : stefanzweifel/git-auto-commit-action@v5
+        with: 
+          commit_message: "Update latest bike availability map"
+          file_pattern: "latest_bike_availability_map.html"
+          branch: main
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deploy_to_pages
+        uses: actions/deploy-pages@v4
         
   
