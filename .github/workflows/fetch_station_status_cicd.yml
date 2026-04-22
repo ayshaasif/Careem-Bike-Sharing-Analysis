@@ -23,9 +23,15 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Fecth Station --> dim station
+        env : 
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run : python scrape_station_info.py
 
       - name: Run Fetch Station status
-        run: python scarpe_2.py
+        env : 
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python scrape_station_status.py
         
   
