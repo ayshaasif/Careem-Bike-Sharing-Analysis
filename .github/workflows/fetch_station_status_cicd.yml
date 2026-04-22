@@ -3,6 +3,7 @@ name: Bike Sharing CICD Pipeline
 on:
   schedule:
   - cron : '*/15 * * * *'
+  workflow_dispatch: # Allow manual trigger of the workflow
 
 jobs:
   run-python:
