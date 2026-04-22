@@ -49,7 +49,7 @@ jobs:
         uses : stefanzweifel/git-auto-commit-action@v5
         with: 
           commit_message: "Update latest bike availability map"
-          file_pattern: "latest_bike_availability_map.html"
+          file_pattern: "latest_bike_availability_map.html stations.geojson"
           branch: main
 
       - name: Upload to GitHub Pages
