@@ -12,7 +12,7 @@ jobs:
       contents: write
       pages: write
       id-token: write
-      
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,7 +43,7 @@ jobs:
         env : 
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: python generate_bike_station_map.py
+        run: python generate_latest_map.py
 
       - name : Commit and push latest bike availability map
         uses : stefanzweifel/git-auto-commit-action@v5
